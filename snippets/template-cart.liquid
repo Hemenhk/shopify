@@ -1,23 +1,52 @@
-<div x-data="{ openCart = false }" class="absolute top-0 z-[99] w-[400px] h-full bg-[#fafafa]">
-
+<div x-data="{ openCart = false, updateQuantityHandler: updateQuantityHandler }" class="absolute top-0 z-[99] w-[400px] h-full bg-[#fafafa]">
   <div class="flex flex-col justify-center items-center gap-6 z-60">
     <div class="flex justify-between items-center py-8 px-6 w-full border-b">
       <h1 class="text-xl uppercase tracking-widest">Cart</h1>
       <button x-on:click="openCart = false">{% render 'icon-close-button' %}</button>
     </div>
     <div class="h-[75vh]">
-      <ul>
-        <li>HELLO</li>
-        <li>HELLO</li>
-        <li>HELLO</li>
-        <li>HELLO</li>
-        <li>HELLO</li>
-      </ul>
+      {% if cart.item_count > 0 %}
+        {% for item in cart.items %}
+          <div class="flex justify-between items-center mb-5 pb-8 gap-5 border-b">
+            <div class="flex items-center ml-10">
+              <img
+                src="{{ item.image | img_url: "large" }}"
+                alt="{{ item.image.alt }}"
+                height="200"
+                width="200">
+            </div>
+            <div class="flex flex-col gap-4 mr-20">
+              <div class="flex flex-col gap-2">
+                <p class="text-sm tracking-wider uppercase w-[150px] whitespace-nowrap overflow-hidden text-ellipsis">{{ item.title }}</p>
+                <p class="text-sm">{{ item.line_price | money }}</p>
+              </div>
+              <div class="flex justify-between items-center gap-3">
+                <div class="flex justify-center items-center gap-4 border border-[#dbdbdb] b-radius rounded-sm p-[6px]">
+                  {% assign quantity_minus_one = item.quantity | minus: 1 %}
+                  <a
+                    href="{{ routes.cart_change_url }}?quantity={{ quantity_minus_one   }}&line={{ forloop.index }}"
+                    data-quantity="{{ quantity_minus_one }}"
+                    data-line="{{ forloop.index }}"
+                    title="{{ cart.items.set_quantity | t: new_quantity: quantity_minus_one }}">{% render "icon-minus" %}</a>
+                  <p>{{ item.quantity }}</p>
+                  {%- assign quantity_plus_one = item.quantity | plus: 1 -%}
+                  <a
+                    href="{{ routes.cart_change_url }}?quantity={{ quantity_plus_one   }}&line={{ forloop.index }}"
+                    data-quantity="{{ quantity_plus_one }}"
+                    data-line="{{ forloop.index }}"
+                    title="{{ cart.items.set_quantity | t: new_quantity: quantity_plus_one }}">{% render "icon-plus" %}</a>
+                </div>
+                <a href="{{ routes.cart_change_url }}?line={{ forloop.index }}&quantity=0">{% render "icon-trash" %}</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p class="uppercase">Cart it empty!</p>
+      {% endif %}
     </div>
     <div class="">
-      <button class="uppercase text-white bg-black py-2 w-[350px] transition ease-out duration-300 hover:bg-gray-700">checkout - 100 SEK</button>
+      <button class="uppercase text-white bg-black py-2 w-[350px] transition ease-out duration-300 hover:bg-gray-700">checkout - {{ cart.total_price | money }}</button>
     </div>
-
   </div>
-
 </div>
