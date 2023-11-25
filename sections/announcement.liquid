@@ -1,0 +1,31 @@
+<div class="flex justify-center items-center uppercase tracking-widest h-[5vh] w-full" style="background-color: {{ section.settings.announcement_background_color }}; color: {{ section.settings.announcement_text_color }} ">
+  <h1>{{ section.settings.announcement_title }}</h1>
+</div>
+
+{% schema %}
+  {
+    "name": "Announcement",
+    "settings": [
+      {
+        "type": "text",
+        "id": "announcement_title",
+        "label": "Announcement",
+        "default": "Announcement",
+        "info": "This is for the announcement text"
+
+      }, {
+        "type": "color",
+        "id": "announcement_text_color",
+        "label": "Announcement Text Color",
+        "default": "#fff",
+        "info": "This is for the announcement text color"
+      }, {
+        "type": "color",
+        "id": "announcement_background_color",
+        "label": "Announcement Background Color",
+        "default": "#000",
+        "info": "This is for the announcement background color"
+      }
+    ]
+  }
+{% endschema %}

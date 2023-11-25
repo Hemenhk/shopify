@@ -8,7 +8,7 @@
     <link rel="canonical" href="{{ canonical_url }}">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
-    {{ content_for_header }}
+  {{ content_for_header }}
     <!-- Header hook for plugins -->
     {{ 'application.css' | asset_url | stylesheet_tag }}
     {{ 'application.js' | asset_url | script_tag }}
@@ -18,7 +18,7 @@
       document.addEventListener('DOMContentLoaded', function() {
         const cartButton = document.getElementById('cartButton');
         const cartDrawer = document.getElementById('cartDrawer');
-
+      
         cartButton.addEventListener('click', function() {
           cartDrawer.classList.toggle('hidden');
         });
@@ -26,6 +26,7 @@
     </script>
   </head>
   <body>
+    {% section "announcement" %}
     {% section 'header' %}
     <main role="main">
       {{ content_for_layout }}
