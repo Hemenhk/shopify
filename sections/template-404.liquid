@@ -1,0 +1,30 @@
+<div class="h-screen flex flex-col justify-center items-center gap-5">
+  <h1 class="text-4xl font-bold uppercase">{{ section.settings.title }}</h1>
+  <p>{{ section.settings.subtext_title }}</p>
+  <button class="bg-slate-950 text-white px-6 py-3 rounded-sm transition ease-out duration-300 hover:bg-slate-500">
+    <a href="/">Back to the homepage</a>
+  </button>
+</div>
+
+
+
+{% schema %}
+  {
+    "name": "Template 404",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "default": "404",
+        "label": "404 Heading Title"
+
+      }, {
+        "type": "text",
+        "id": "subtext_title",
+        "default": "The page you're looking for is not found!",
+        "label": "404 Subtext Title"
+
+      }
+    ]
+  }
+{% endschema %}

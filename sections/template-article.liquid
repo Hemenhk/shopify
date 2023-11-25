@@ -1,0 +1,79 @@
+<div class="flex flex-col justify-center gap-5">
+
+  {% for block in section.blocks %}
+    {% case block.type %}
+      {% when "article_title" %}
+      <h1 class="uppercase text-2xl font-semibold">{{ article.title }}</h1>
+      {% when "article_author" %}
+      {% if section.settings.enable_author %}
+        <small>{{ article.author }}</small>
+      {% endif %}
+      {% when "article_created_at" %}
+      {% if section.settings.enable_time %}
+        <time datetime="{{article.created_at | date: "%Y-%m-%d"}}">{{ article.created_at | date: "%Y-%m-%d" }}</time>
+
+      {% endif %}
+
+      {% when "featured_image" %}
+      <img
+        src="{{article.image | img_url: 'large'}}"
+        alt="{{ article.image.alt }}"
+        width="200"
+        height="200">
+      {% when "article_content" %}
+      <div>{{ article.content }}</div>
+
+  {% else %}
+
+    {% endcase %}
+  {% endfor %}
+
+
+
+</div>
+
+
+{% schema %}
+  {
+    "name": "Template Article",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_author",
+        "default": true,
+        "label": "Display Author Name"
+      }, {
+        "type": "checkbox",
+        "id": "enable_time",
+        "default": true,
+        "label": "Display Time Created"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "article_title",
+        "name": "Title",
+        "limit": 1
+      },
+      {
+        "type": "article_author",
+        "name": "Author",
+        "limit": 1
+      },
+      {
+        "type": "article_created_at",
+        "name": "Created At",
+        "limit": 1
+      },
+      {
+        "type": "featured_image",
+        "name": "Thumbnail",
+        "limit": 1
+      }, {
+        "type": "article_content",
+        "name": "Content",
+        "limit": 1
+      }
+    ]
+  }
+{% endschema %}
