@@ -7,9 +7,6 @@ module.exports = {
     "./templates/customers/*.liquid",
     "./templates/*.liquid",
   ],
-  theme: {
-    extend: {},
-  },
+  theme: {},
   plugins: [],
-}
-
+};
