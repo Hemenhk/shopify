@@ -1,4 +1,4 @@
-<div x-data="{ openCart = false, updateQuantityHandler: updateQuantityHandler }" class="absolute top-0 z-[99] w-[400px] h-full bg-[#fafafa]">
+<div x-data="{ openCart = false }" class="absolute top-0 z-[99] w-[400px] h-full bg-[#fafafa]">
   <div class="flex flex-col justify-center items-center gap-6 z-60">
     <div class="flex justify-between items-center py-8 px-6 w-full border-b">
       <h1 class="text-xl uppercase tracking-widest">Cart</h1>
@@ -21,19 +21,29 @@
                 <p class="text-sm">{{ item.line_price | money }}</p>
               </div>
               <div class="flex justify-between items-center gap-3">
+
                 <div class="flex justify-center items-center gap-4 border border-[#dbdbdb] b-radius rounded-sm p-[6px]">
-                  {% assign quantity_minus_one = item.quantity | minus: 1 %}
+                  {%- assign quantity_minus_one = line_item.quantity | minus: 1 -%}
                   <a
-                    href="{{ routes.cart_change_url }}?quantity={{ quantity_minus_one   }}&line={{ forloop.index }}"
+                    title="{{ 'cart.items.set_quantity' | t: new_quantity: quantity_minus_one }}"
+                    href="{{ routes.cart_change_url }}?quantity={{ quantity_minus_one }}&line={{ forloop.index }}"
                     data-quantity="{{ quantity_minus_one }}"
                     data-line="{{ forloop.index }}"
-                    title="{{ cart.items.set_quantity | t: new_quantity: quantity_minus_one }}">{% render "icon-minus" %}</a>
-                  <p>{{ item.quantity }}</p>
-                  {%- assign quantity_plus_one = item.quantity | plus: 1 -%}
+                    data-action="update-item-quantity">{% render "icon-minus" %}</a>
+                  <input
+                    class="w-6 bg-transparent text-center"
+                    type="text"
+                    name="updates[]"
+                    id="updates_{{ line_item.key }}"
+                    pattern="[0-9]*"
+                    data-line="{{ forloop.index }}"
+                    value="{{ item.quantity }}">
+                  {% assign quantity_plus_one = item.quantity | plus: 1 %}
                   <a
                     href="{{ routes.cart_change_url }}?quantity={{ quantity_plus_one   }}&line={{ forloop.index }}"
                     data-quantity="{{ quantity_plus_one }}"
                     data-line="{{ forloop.index }}"
+                    data-action="update-item-quantity"
                     title="{{ cart.items.set_quantity | t: new_quantity: quantity_plus_one }}">{% render "icon-plus" %}</a>
                 </div>
                 <a href="{{ routes.cart_change_url }}?line={{ forloop.index }}&quantity=0">{% render "icon-trash" %}</a>
