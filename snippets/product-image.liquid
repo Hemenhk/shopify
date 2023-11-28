@@ -1,0 +1,55 @@
+<style>
+  .swiper-button-prev,
+  .swiper-button-next {
+    color: black;
+    top: auto !important;
+    height: 20px;
+  }
+
+  .swiper-button-prev::after,
+  .swiper-button-next::after {
+    font-size: 20px;
+  }
+
+  .swiper-pagination {
+    bottom: 0 !important;
+  }
+
+
+  .swiper-pagination-bullet-active {
+    background: black !important;
+  }
+</style>
+
+<div class="swiper flex flex-col justify-center items-center mt-3 gap-5">
+  <div class="swiper-wrapper">
+    {% for media in product.media %}
+      <div class="swiper-slide">
+        <div class="flex justify-center h-full p-2">{% render "product-media"
+ 
+
+ 
+
+ 
+, media: media %}</div>
+      </div>
+    {% endfor %}
+  </div>
+  <div class="flex justify-between items-center gap-10 mt-5">
+    <div class="swiper-pagination"></div>
+  </div>
+  <div class="swiper-button-prev"></div>
+  <div class="swiper-button-next"></div>
+</div>
+
+
+<script>
+  const swiper = new Swiper(".swiper", {direciton: "horizontal", 
+  pagination: {
+    el: ".swiper-pagination"
+  },
+  navigation: {
+    prevEl: ".swiper-button-prev",
+    nextEl: ".swiper-button-next",
+  }})
+</script>

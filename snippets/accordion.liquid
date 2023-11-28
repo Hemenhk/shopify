@@ -1,0 +1,13 @@
+<div x-data="{ open: false }" class="py-5 px-5 w-[400px] bg-gray-100 rounded-lg">
+  <button x-on:click="open = !open" class="flex justify-between w-full">
+    <span>title</span>
+    <span x-text="open ? '-' : '+'"></span>
+  </button>
+
+  <div
+    x-show="open"
+    class="overflow-hidden transition-all duration-700 ease-in-out text-slate-600 text-sm"
+    x-bind:class="open ? 'opacity-100' : opacity-0">
+    <div>answer</div>
+  </div>
+</div>

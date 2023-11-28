@@ -2,9 +2,8 @@
   <div class="p-4">
     <div class="max-w-6xl flex- flex-col my-10 mx-auto">
       <div class="flex-1">
-        <div class="flex items-end justify-between my-5">
-          <h1 class="text-3xl">Your cart</h1>
-          <a href="{{ routes.all_products_collectiom_url }}" class="text-blue-600 hover:text-blue-800 font-medium underline">Continue shopping</a>
+        <div class="flex items-center justify-center my-5">
+          <h1 class="text-2xl uppercase tracking-widest">cart</h1>
         </div>
       </div>
     </div>
@@ -14,12 +13,13 @@
         action="{{ routes.cart_url }}"
         method="POST"
         novalidate>
-        <table class="table table-auto divide-y divide-gray-200 my-4 w-full border-b">
+        <table class="table table-auto divide-y divide-gray-200 my-4 w-full h-[10vh] overflow-y-auto  border-b">
           <thead class="table-header-group">
             <th class="py-3 text-left text-sm text-gray-500 uppercase tracking-widest font-normal">Product</th>
             <th class="py-3 text-left text-sm text-gray-500 uppercase tracking-widest font-normal">Quantity</th>
             <th class="py-3 text-right text-sm text-gray-500 uppercase tracking-widest font-normal">Total</th>
           </thead>
+
           <tbody>
             {% for item in cart.items %}
               <tr class="table-row">
@@ -77,6 +77,7 @@
               </tr>
             {% endfor %}
           </tbody>
+
         </table>
         <div class="flex items-center justify-between gap-10 w-full">
           <div class="w-full my-4">
@@ -98,7 +99,7 @@
               <button
                 type="submit"
                 name="checkout"
-                class="w-[150px] p-3 uppercase tracking-widest bg-black text-white transition ease-out duration-300 hover:bg-gray-700">Checkout</button>
+                class="w-[200px] p-3 uppercase tracking-widest bg-black text-white transition ease-out duration-300 hover:bg-gray-700">Go to Checkout</button>
             </div>
           </div>
         </div>

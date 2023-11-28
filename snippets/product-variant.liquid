@@ -1,0 +1,26 @@
+{% unless product.has_only_default_variant %}
+  <div class="flex flex-col gap-5">
+    {% for option in product.options_with_values %}
+      <span class="uppercase tracking-widest">{{ option.name }}</span>
+      <ul class="flex flex-wrap items-center gap-3">
+
+        {% for variant in option.values %}
+          <li class="radio-toolbar">
+            <input
+              type="radio"
+              id="option-{{ section.id }}-{{ forloop.parentloop.index0 }}-{{ forloop.index0  }}"
+              name="option-{{ forloop.parentloop.index0 }}"
+              value="{{ value | escape }}"
+              {% if value == option.selected_value %}
+              checked="checked"
+              {% endif %}
+              data-option-position="{{ option.position }}">
+            <label for="option-{{ section.id }}-{{ forloop.parentloop.index0 }}-{{ forloop.index0 }}">
+              <span class="u-visually-hidden uppercase text-sm tracking-wider">{{ variant }}</span>
+            </label>
+          </li>
+        {% endfor %}
+      </ul>
+    {% endfor %}
+  </div>
+{% endunless %}
