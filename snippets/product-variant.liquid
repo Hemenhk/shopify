@@ -1,5 +1,5 @@
 {% unless product.has_only_default_variant %}
-  <div
+  <variant-selector
     class="flex flex-col gap-5"
     data-url="{{ product.url }}"
     data-section="{{ section.id }}">
@@ -10,6 +10,7 @@
         {% for value in option.values %}
           <li class="radio-toolbar">
             <input
+              class="radio"
               type="radio"
               id="option-{{ section.id }}-{{ forloop.parentloop.index0 }}-{{ forloop.index0  }}"
               name="option-{{ forloop.parentloop.index0 }}"
@@ -22,8 +23,12 @@
               <span class="u-visually-hidden uppercase text-sm tracking-wider">{{ value }}</span>
             </label>
           </li>
+
+          <script type="application/json">
+            {{ product.variants | json }}
+          </script>
         {% endfor %}
       </ul>
     {% endfor %}
-  </div>
+  </variant-selector>
 {% endunless %}
