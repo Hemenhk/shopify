@@ -604,6 +604,11 @@ video {
   margin-bottom: 2.5rem;
 }
 
+.my-2 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
 .my-3 {
   margin-top: 0.75rem;
   margin-bottom: 0.75rem;
@@ -622,11 +627,6 @@ video {
 .my-8 {
   margin-top: 2rem;
   margin-bottom: 2rem;
-}
-
-.my-2 {
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
 }
 
 .mb-3 {
@@ -665,12 +665,12 @@ video {
   margin-top: 0.75rem;
 }
 
-.mt-2 {
-  margin-top: 0.5rem;
-}
-
 .mt-5 {
   margin-top: 1.25rem;
+}
+
+.mt-10 {
+  margin-top: 2.5rem;
 }
 
 .block {
@@ -753,50 +753,6 @@ video {
   height: 100vh;
 }
 
-.h-\[22rem\] {
-  height: 22rem;
-}
-
-.h-\[200px\] {
-  height: 200px;
-}
-
-.h-\[500px\] {
-  height: 500px;
-}
-
-.h-\[50\%\] {
-  height: 50%;
-}
-
-.h-\[80\%\] {
-  height: 80%;
-}
-
-.h-94 {
-  height: 22rem;
-}
-
-.h-\[28rem\] {
-  height: 28rem;
-}
-
-.h-\[40rem\] {
-  height: 40rem;
-}
-
-.h-\[10rem\] {
-  height: 10rem;
-}
-
-.h-\[400px\] {
-  height: 400px;
-}
-
-.h-\[800px\] {
-  height: 800px;
-}
-
 .w-10 {
   width: 2.5rem;
 }
@@ -841,20 +797,8 @@ video {
   width: 100%;
 }
 
-.w-\[50\%\] {
-  width: 50%;
-}
-
-.w-\[500px\] {
-  width: 500px;
-}
-
 .w-screen {
   width: 100vw;
-}
-
-.w-\[300px\] {
-  width: 300px;
 }
 
 .max-w-6xl {
@@ -1009,10 +953,6 @@ video {
   gap: 1.5rem;
 }
 
-.gap-\[3rem\] {
-  gap: 3rem;
-}
-
 .space-x-10 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
   margin-right: calc(2.5rem * var(--tw-space-x-reverse));
@@ -1036,10 +976,6 @@ video {
 
 .overflow-y-auto {
   overflow-y: auto;
-}
-
-.overflow-x-hidden {
-  overflow-x: hidden;
 }
 
 .text-ellipsis {
@@ -1078,11 +1014,6 @@ video {
 .border-gray-600 {
   --tw-border-opacity: 1;
   border-color: rgb(75 85 99 / var(--tw-border-opacity));
-}
-
-.border-black {
-  --tw-border-opacity: 1;
-  border-color: rgb(0 0 0 / var(--tw-border-opacity));
 }
 
 .bg-\[\#fafafa\] {
@@ -1133,16 +1064,6 @@ video {
   object-fit: cover;
 }
 
-.object-fill {
-  -o-object-fit: fill;
-  object-fit: fill;
-}
-
-.object-center {
-  -o-object-position: center;
-  object-position: center;
-}
-
 .p-2 {
   padding: 0.5rem;
 }
@@ -1159,12 +1080,12 @@ video {
   padding: 1.25rem;
 }
 
-.p-\[6px\] {
-  padding: 6px;
-}
-
 .p-\[5rem\] {
   padding: 5rem;
+}
+
+.p-\[6px\] {
+  padding: 6px;
 }
 
 .px-1 {
@@ -1237,13 +1158,20 @@ video {
   padding-bottom: 2rem;
 }
 
-.px-12 {
-  padding-left: 3rem;
-  padding-right: 3rem;
+.pb-3 {
+  padding-bottom: 0.75rem;
 }
 
 .pb-4 {
   padding-bottom: 1rem;
+}
+
+.pb-5 {
+  padding-bottom: 1.25rem;
+}
+
+.pb-6 {
+  padding-bottom: 1.5rem;
 }
 
 .pb-8 {
@@ -1262,12 +1190,16 @@ video {
   padding-top: 1.25rem;
 }
 
+.pt-\[5rem\] {
+  padding-top: 5rem;
+}
+
 .pt-10 {
   padding-top: 2.5rem;
 }
 
-.pb-5 {
-  padding-bottom: 1.25rem;
+.pt-14 {
+  padding-top: 3.5rem;
 }
 
 .text-left {
@@ -1369,6 +1301,11 @@ video {
   color: rgb(239 68 68 / var(--tw-text-opacity));
 }
 
+.text-red-700 {
+  --tw-text-opacity: 1;
+  color: rgb(185 28 28 / var(--tw-text-opacity));
+}
+
 .text-slate-600 {
   --tw-text-opacity: 1;
   color: rgb(71 85 105 / var(--tw-text-opacity));
@@ -1377,11 +1314,6 @@ video {
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.text-red-700 {
-  --tw-text-opacity: 1;
-  color: rgb(185 28 28 / var(--tw-text-opacity));
 }
 
 .line-through {
@@ -1463,11 +1395,6 @@ video {
     scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
-.hover\:border-black:hover {
-  --tw-border-opacity: 1;
-  border-color: rgb(0 0 0 / var(--tw-border-opacity));
-}
-
 .hover\:bg-gray-700:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(55 65 81 / var(--tw-bg-opacity));
@@ -1478,19 +1405,15 @@ video {
   background-color: rgb(100 116 139 / var(--tw-bg-opacity));
 }
 
-.hover\:bg-slate-800:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(30 41 59 / var(--tw-bg-opacity));
-}
-
-.hover\:bg-slate-700:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(51 65 85 / var(--tw-bg-opacity));
-}
-
 .hover\:text-gray-900:hover {
   --tw-text-opacity: 1;
   color: rgb(17 24 39 / var(--tw-text-opacity));
+}
+
+@media (min-width: 640px) {
+  .sm\:text-left {
+    text-align: left;
+  }
 }
 
 @media (min-width: 768px) {
@@ -1518,6 +1441,10 @@ video {
   .md\:grid-cols-4 {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
+
+  .md\:text-left {
+    text-align: left;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -1542,7 +1469,6 @@ video {
     align-items: flex-start;
   }
 }
-
 .radio-toolbar input[type="radio"] {
   opacity: 0;
   position: fixed;
@@ -1567,4 +1493,3 @@ video {
   background-color: transparent;
   border-color: #000;
 }
-

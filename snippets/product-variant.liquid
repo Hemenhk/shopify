@@ -1,22 +1,25 @@
 {% unless product.has_only_default_variant %}
-  <div class="flex flex-col gap-5">
+  <div
+    class="flex flex-col gap-5"
+    data-url="{{ product.url }}"
+    data-section="{{ section.id }}">
     {% for option in product.options_with_values %}
       <span class="uppercase tracking-widest">{{ option.name }}</span>
       <ul class="flex flex-wrap items-center gap-3">
 
-        {% for variant in option.values %}
+        {% for value in option.values %}
           <li class="radio-toolbar">
             <input
               type="radio"
               id="option-{{ section.id }}-{{ forloop.parentloop.index0 }}-{{ forloop.index0  }}"
               name="option-{{ forloop.parentloop.index0 }}"
               value="{{ value | escape }}"
-              {% if value == option.selected_value %}
+              {% if option.selected_value == value %}
               checked="checked"
               {% endif %}
               data-option-position="{{ option.position }}">
-            <label for="option-{{ section.id }}-{{ forloop.parentloop.index0 }}-{{ forloop.index0 }}">
-              <span class="u-visually-hidden uppercase text-sm tracking-wider">{{ variant }}</span>
+            <label class="cursor-pointer" for="option-{{ section.id }}-{{ forloop.parentloop.index0 }}-{{ forloop.index0 }}">
+              <span class="u-visually-hidden uppercase text-sm tracking-wider">{{ value }}</span>
             </label>
           </li>
         {% endfor %}
