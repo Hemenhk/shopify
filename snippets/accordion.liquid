@@ -1,13 +1,25 @@
-<div x-data="{ open: false }" class="py-5 px-5 w-[400px] bg-gray-100 rounded-lg">
-  <button x-on:click="open = !open" class="flex justify-between w-full">
-    <span>title</span>
-    <span x-text="open ? '-' : '+'"></span>
-  </button>
+<div>
+  {% for metafield in product.metafields.custom %}
+    <div x-data="{ open: false }" class="py-5 px-5 w-[400px] border-b {% if forloop.first %}border-t{% endif %} 
+  {% if forloop.last %}border-b{% endif %}">
+      <button x-on:click="open = !open" class="flex justify-between w-full">
+        <span class="uppercase text-lg tracking-widest">{{ metafield | first }}</span>
+        <span x-text="open ? '-' : '+'"></span>
+      </button>
 
-  <div
-    x-show="open"
-    class="overflow-hidden transition-all duration-700 ease-in-out text-slate-600 text-sm"
-    x-bind:class="open ? 'opacity-100' : opacity-0">
-    <div>answer</div>
-  </div>
+      <div
+        x-show="open"
+        x-transition:enter="transition ease-out duration-300 transform origin-top"
+        x-transition:enter-start="opacity-0 scale-y-0"
+        x-transition:enter-end="opacity-100 scale-y-100"
+        x-transition:leave="transition ease-out duration-300 transform origin-top"
+        x-transition:leave-start="opacity-100 scale-y-100"
+        x-transition:leave-end="opacity-0 scale-y-0"
+        class="overflow-hidden transition-all duration-300 ease-in-out text-slate-800 tracking-wider leading-7">
+
+        <div class="overflow-hidden py-5 ">{{ metafield | last }}</div>
+
+      </div>
+    </div>
+  {% endfor %}
 </div>
