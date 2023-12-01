@@ -4,29 +4,32 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 
-<div className="flex flex-col lg:flex-row justify-center items-center gap-10 p-[5rem] bg-[#fafafa] w-screen">
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-14">
-    <div class="flex flex-col justify-center items-center gap-12">
-      <div>
-        {% render "product-image" %}</div>
-      {% render "accordion" %}</div>
-    <div class="flex flex-col relative items-center lg:items-start lg:left-[50px] lg:w-[400px] gap-10">
-      {% form 'product'
-        , product
-        , id: 'product-form'
-        , novalidate: 'novalidate' %}
-        <input
-          type="hidden"
-          name="id"
-          value="{{ selected_variant.id  }}">
+<div class="flex flex-col lg:flex-row justify-center items-center gap-10 p-[5rem] bg-[#fafafa]">
+  <div class="flex flex-col gap-10">
+    <div class="flex flex-col w-[400px]">
+      <div>{% render "product-image" %}</div>
 
-        {% for block in section.blocks %}
-          <div class="w-[400px]">
-            {% case block.type %}
-              <div class="my-3">
-                <p class="uppercase text-sm text-gray-500 tracking-widest">{{ product.vendor }}</p>
-              </div>
+      <div class="mt-24 hidden lg:flex">{% render "accordion" %}</div>
+    </div>
+  </div>
+  <div class="flex flex-col relative items-center lg:items-start lg:left-[50px] lg:w-[400px] gap-10">
+    {% form 'product'
+      , product
+      , id: 'product-form'
+      , novalidate: 'novalidate' %}
+      <input
+        type="hidden"
+        name="id"
+        value="{{ selected_variant.id  }}">
+
+      {% for block in section.blocks %}
+        <div class="w-[400px]">
+          {% case block.type %}
+
             {% when "vendor" %}
+              <div class="my-3">
+                <p class="uppercase text-xs text-gray-500 tracking-widest">{{ product.vendor }}</p>
+              </div>
             {% when "title" %}
 
               <div class="py-3">
@@ -58,17 +61,18 @@
                                 checked
                                 {% endif %}>
                               <label class="cursor-pointer" for="Option-{{ section.id }}-{{ forloop.parent.index0 }}-{{ forloop.index }}">
-                                <span class="u-visually-hidden uppercase text-sm tracking-wider">{{ value }}</span>
+                                <span class="u-visually-hidden text-sm tracking-wider">{{ value }}</span>
                               </label>
                             </li>
                           {% endfor %}
                         </ul>
                       </div>
 
-                      <script type="application/json">
-                        {{ product.variants | json }}
-                      </script>
+
                     {% endfor %}
+                    <script type="application/json">
+                      {{ product.variants | json }}
+                    </script>
                   </variant-selector>
                 {% endunless %}
               </div>
@@ -103,34 +107,35 @@
 
     {% endform %}
   </div>
-</div></div><script>
+</div>
+<script>
   class VariantSelector extends HTMLElement {
     constructor() {
       super();
       this.addEventListener("change", this.onVariantChange);
     }
-
+  
     onVariantChange() {
       this.getSelectedOptions();
       this.getSelectedVariant();
-
+  
       if (this.currentVariant) {
         this.updateURL();
         this.updateFormID();
         this.updatePrice();
       }
     }
-
+  
     getSelectedOptions() {
       this.options = Array.from(this.querySelectorAll('input[type="radio"]:checked'), (radio) => radio.value);
       console.log(this.options);
     }
-
+  
     getVariantJSON() {
       this.variantData = this.variantData || JSON.parse(this.querySelector('[type="application/json"]').textContent);
       return this.variantData;
     }
-
+  
     getSelectedVariant() {
       this.currentVariant = this.getVariantJSON().find(
         (variant) => {
@@ -139,78 +144,80 @@
               return this.options[index] === option;
             }
           ).includes(false);
-
+  
           if (findings) return variant;
         }
       );
-
+  
       console.log(this.currentVariant);
     }
-
+  
     updateURL() {
       if (!this.currentVariant) return;
       window.history.replaceState({}, '', `${this.dataset.url}?variant=${this.currentVariant.id}`);
     }
-
+  
     updateFormID() {
       const form_input = document.querySelector("#product-form").querySelector('input[name="id"]');
       form_input.value = this.currentVariant.id;
     }
-
+  
     updatePrice() {
       fetch(`${this.dataset.url}?variant=${this.currentVariant.id}&section_id=${this.dataset.section}`)
         .then((response) => response.text())
         .then((responseText) => {
           const id = `price-${this.dataset.section}`;
           const html = new DOMParser().parseFromString(responseText, 'text/html');
-
+  
           const oldPrice = document.getElementById(id);
           const newPrice = html.getElementById(id);
-
+  
           if (oldPrice && newPrice) oldPrice.innerHTML = newPrice.innerHTML;
         });
     }
   }
-
+  
   customElements.define("variant-selector", VariantSelector);
-</script>{% schema %}
-{
-  "name": "Product",
-  "blocks": [
-    {
-      "type": "vendor",
-      "name": "Vendor",
-      "limit": 1
-    },
-    {
-      "type": "title",
-      "name": "Title",
-      "limit": 1
-    },
-    {
-      "type": "price",
-      "name": "Price",
-      "limit": 1
-    },
-    {
-      "type": "variant_selector",
-      "name": "Variant Selector",
-      "limit": 1
-    }, {
-      "type": "quantity",
-      "name": "Quantity",
-      "limit": 1
-    }, {
-      "type": "checkout_button",
-      "name": "Checkout Button",
-      "limit": 1
-    }, {
-      "type": "description",
-      "name": "Description",
-      "limit": 1
-    }, {
-      "type": "metafield",
-      "name": "Metafield"
-    }
-  ]
-}{% endschema %}
+</script>
+{% schema %}
+  {
+    "name": "Product",
+    "blocks": [
+      {
+        "type": "vendor",
+        "name": "Vendor",
+        "limit": 1
+      },
+      {
+        "type": "title",
+        "name": "Title",
+        "limit": 1
+      },
+      {
+        "type": "price",
+        "name": "Price",
+        "limit": 1
+      },
+      {
+        "type": "variant_selector",
+        "name": "Variant Selector",
+        "limit": 1
+      }, {
+        "type": "quantity",
+        "name": "Quantity",
+        "limit": 1
+      }, {
+        "type": "checkout_button",
+        "name": "Checkout Button",
+        "limit": 1
+      }, {
+        "type": "description",
+        "name": "Description",
+        "limit": 1
+      }, {
+        "type": "metafield",
+        "name": "Metafield"
+      }
+    ]
+  }
+{% endschema %}
