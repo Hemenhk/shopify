@@ -1,5 +1,5 @@
 {% assign main_menu_linklist = linklists[section.settings.menu].links %}
-<nav x-data="{ openSideBar: false,openCart: false}" class="space-x-10">
+<nav x-data="{ openSideBar: false,openCart: false}" x-cloak class="space-x-10">
   <div class="flex justify-between items-center w-full h-32 py-6 px-14 border-b">
     <!-- Menu button -->
     <button x-on:click="openSideBar = ! openSideBar" type="button">

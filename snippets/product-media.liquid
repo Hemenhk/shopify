@@ -1,7 +1,7 @@
 {% case media.media_type %}
   {% when 'image' %}
     <img
-      src="{{ media | img_url: 'large' }}"
+      src="{{ media | img_url: 'master' }}"
       alt="{{ media.preview_image.alt }}"
       width="350"
       height="350"

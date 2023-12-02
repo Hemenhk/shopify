@@ -2,6 +2,12 @@
   <div class="flex gap-5 items-center justify-center lg:justify-start">
     <p class="text-red-700 font-semibold text-xl uppercase">{{ product.price | money }}</p>
     <p class="line-through text-slate-600 uppercase">{{ product.compare_at_price | money }}</p>
+
+    {% assign price = product.price %}
+    {% assign compare_at_price = product.compare_at_price %}
+    {% assign percentage_discount = price | minus: compare_at_price | times: 100.0 | divided_by: compare_at_price %}
+
+    <p class="price-tag tracking-wider">{{ percentage_discount | round: 0 }}%</p>
   </div>
 {% else %}
   <p class>{{ product.price | money }}</p>
