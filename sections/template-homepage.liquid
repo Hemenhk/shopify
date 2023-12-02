@@ -1,9 +1,9 @@
 <section class="flex flex-col items-center justify-center gap-5 pb-10">
   <div class="flex flex-col gap-10 h-[600px] w-full" style="background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url({{ section.settings.hero_image | img_url: 'master' }}) center/cover no-repeat; height: 95vh;">
     <div class="flex flex-col gap-4 relative top-[50%] lg:top-[70%] pl-14">
-      <h3 class="uppercase text-lg text-gray-300 tracking-widest">till 1 augusti</h3>
-      <h1 class="uppercase text-2xl text-gray-200 tracking-widest">20 % RABATT PÅ HELA WEBBPLATSEN</h1>
-      <button class="hero-btn">Buy</button>
+      <h3 class="uppercase text-lg tracking-widest" style="color: {{ section.settings.color_sub_heading }};">{{ section.settings.sub_heading }}</h3>
+      <h1 class="uppercase text-2xl text-gray-200 tracking-widest" style="color: {{ section.settings.color_heading }};">{{ section.settings.heading }}</h1>
+      <button class="hero-btn">{{ section.settings.hero_button }}</button>
     </div>
 
   </div>
@@ -17,6 +17,36 @@
         "type": "image_picker",
         "id": "hero_image",
         "label": "Hero Banner Image"
+      },
+      {
+        "type": "text",
+        "id": "sub_heading",
+        "default": "Add your sub-heading",
+        "label": "Sub-Heading",
+        "info": "Text for the sub-heading"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "default": "Add your heading",
+        "label": "Heading",
+        "info": "Text for the heading"
+      },
+      {
+        "type": "text",
+        "id": "hero_button",
+        "label": "Hero Button",
+        "info": "Text for the hero button"
+      }, {
+        "type": "color",
+        "id": "color_sub_heading",
+        "default": "#fff",
+        "label": "Sub-Heading Color"
+      }, {
+        "type": "color",
+        "id": "color_heading",
+        "default": "#fff",
+        "label": "Heading Color"
       }
     ]
   }
