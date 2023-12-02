@@ -1,13 +1,38 @@
 <div class="my-4">
   <label class="text-sm tracking-wide" for="Quantity-{{ section.id }}">Quantity:</label>
 
-  <div class="my-2">
+  <div class="flex items-center justify-between gap-4 border border-[#dbdbdb] rounded-sm px-5 py-2 w-32">
+    <button
+      type="button"
+      class="decrement-btn"
+      onclick="decrementQuantity('Quantity-{{ section.id }}')">{% render "icon-minus" %}</button>
     <input
-      type="number"
+      type="text"
       name="quantity"
       id="Quantity-{{ section.id }}"
       value="1"
-      min="1"
-      class="w-20 border px-3 py-3">
+      class="bg-transparent w-5 text-center">
+    <button
+      type="button"
+      class="increment-btn"
+      onclick="incrementQuantity('Quantity-{{ section.id }}')">{% render "icon-plus" %}</button>
+
   </div>
 </div>
+
+<script>
+  function incrementQuantity(inputId) {
+    var input = document.getElementById(inputId);
+    var currentValue = parseInt(input.value, 10);
+    input.value = currentValue + 1;
+  }
+  
+  function decrementQuantity(inputId) {
+    var input = document.getElementById(inputId);
+    var currentValue = parseInt(input.value, 10);
+  
+    if (currentValue > 1) {
+      input.value = currentValue - 1;
+    }
+  }
+</script>

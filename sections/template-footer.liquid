@@ -1,0 +1,21 @@
+<div class="w-full" style="background-color: {{ section.settings.footer_background_color  }}; color: {{ section.settings.footer_text_color }};">Footer</div>
+
+
+{% schema %}
+  {
+    "name": "Footer",
+    "settings": [
+      {
+        "type": "color",
+        "id": "footer_background_color",
+        "default": "#000",
+        "label": "Footer Background Color"
+      }, {
+        "type": "color",
+        "id": "footer_text_color",
+        "default": "#fff",
+        "label": "Footer Text Color"
+      }
+    ]
+  }
+{% endschema %}

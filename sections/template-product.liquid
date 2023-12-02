@@ -28,15 +28,15 @@
 
             {% when "vendor" %}
               <div class="my-3">
-                <p class="uppercase text-xs text-gray-500 tracking-widest">{{ product.vendor }}</p>
+                <p class="uppercase text-xs text-gray-500 tracking-widest text-center lg:text-left">{{ product.vendor }}</p>
               </div>
             {% when "title" %}
 
               <div class="py-3">
-                <p class="mx-auto lg:mx-0 text-xl tracking-wide uppercase">{{ product.title }}</p>
+                <p class="mx-auto lg:mx-0 text-xl text-center lg:text-left tracking-wide uppercase">{{ product.title }}</p>
               </div>
             {% when "price" %}
-              <div class="flex items-center justify-start gap-5 w-full border-b pb-5">{% render "product-price" %}</div>
+              <div class="border-b pb-5 text-center lg:text-left">{% render "product-price" %}</div>
             {% when "variant_selector" %}
               <div class="py-4">
                 {% unless product.has_only_default_variant %}
@@ -99,10 +99,9 @@
             {% when "description" %}
               <p>{{ product.description }}</p>
 
-
-              {% else %}
             </div>
         {% endcase %}
+
       {% endfor %}
 
     {% endform %}
