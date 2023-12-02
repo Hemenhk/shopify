@@ -1569,6 +1569,10 @@ video {
     flex-direction: row;
   }
 
+  .md\:items-start {
+    align-items: flex-start;
+  }
+
   .md\:pt-0 {
     padding-top: 0px;
   }
