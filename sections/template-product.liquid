@@ -23,7 +23,7 @@
         value="{{ selected_variant.id  }}">
 
       {% for block in section.blocks %}
-        <div class="w-[400px]">
+        <div class="w-[350px] lg:w-[400px]">
           {% case block.type %}
 
             {% when "vendor" %}
@@ -100,6 +100,7 @@
               <p>{{ product.description }}</p>
 
             </div>
+
         {% endcase %}
 
       {% endfor %}
@@ -107,6 +108,8 @@
     {% endform %}
   </div>
 </div>
+<div class="block lg:hidden z-50">
+  {% render "accordion" %}</div>
 <script>
   class VariantSelector extends HTMLElement {
     constructor() {
