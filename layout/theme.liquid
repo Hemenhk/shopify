@@ -27,9 +27,16 @@
       });
     </script>
   </head>
-  <body>
+  <body class="overflow-x-hidden">
     {% section "announcement" %}
-    {% section 'header' %}
+    {% if template == "index" %}
+      <div class="absolute w-screen text-white transition ease-out duration-700 hover:text-black hover:bg-white">{% section 'header' %}</div>
+      {% section "template-homepage" %}
+    {% else %}
+      {% section 'header' %}
+    {% endif %}
+
+
     <main role="main">
       {{ content_for_layout }}
     </main>
