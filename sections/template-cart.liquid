@@ -44,28 +44,21 @@
                 <td class="py-4 px-2">
                   <div class="flex flex-col pt-10 md:pt-0 md:flex-row items-center gap-5">
                     <div class="flex justify-center items-center gap-4 border border-[#dbdbdb] b-radius rounded-sm p-[6px]">
-                      {%- assign quantity_minus_one = item.quantity | minus: 1 -%}
-                      <a
-                        title="{{ 'cart.items.set_quantity' | t: new_quantity: quantity_minus_one }}"
-                        href="{{ routes.cart_change_url }}?quantity={{ quantity_minus_one }}&line={{ forloop.index }}"
-                        data-quantity="{{ quantity_minus_one }}"
-                        data-line="{{ forloop.index }}"
-                        data-action="update-item-quantity">{% render "icon-minus" %}</a>
+                      <button
+                        type="button"
+                        class="decrement-btn"
+                        onclick="decrementQuantity('Quantity-{{ section.id }}')">{% render "icon-minus" %}</button>
                       <input
-                        class="w-6 bg-transparent text-center"
                         type="text"
                         name="updates[]"
-                        id="updates_{{ line_item.key }}"
-                        pattern="[0-9]*"
-                        data-line="{{ forloop.index }}"
-                        value="{{ item.quantity }}">
-                      {% assign quantity_plus_one = item.quantity | plus: 1 %}
-                      <a
-                        href="{{ routes.cart_change_url }}?quantity={{ quantity_plus_one   }}&line={{ forloop.index }}"
-                        data-quantity="{{ quantity_plus_one }}"
-                        data-line="{{ forloop.index }}"
-                        data-action="update-item-quantity"
-                        title="{{ cart.items.set_quantity | t: new_quantity: quantity_plus_one }}">{% render "icon-plus" %}</a>
+                        id="Quantity-{{ section.id }}"
+                        value="{{ item.quantity }}"
+                        class="bg-transparent w-5 text-center">
+                      <button
+                        type="button"
+                        class="increment-btn"
+                        onclick="incrementQuantity('Quantity-{{ section.id }}')">{% render "icon-plus" %}</button>
+
                     </div>
                     <a href="{{ routes.cart_change_url }}?line={{ forloop.index }}&quantity=0">{% render "icon-trash" %}</a>
                   </div>
@@ -98,6 +91,11 @@
             <div class="py-4">
               <button
                 type="submit"
+                name="update"
+                class="main-btn">Update cart</button>
+            </div>
+              <button
+                type="submit"
                 name="checkout"
                 class="main-btn">Go to Checkout</button>
             </div>
@@ -117,3 +115,20 @@
     </div>
   </div>
 {% endif %}
+
+<script>
+  function incrementQuantity(inputId) {
+    var input = document.getElementById(inputId);
+    var currentValue = parseInt(input.value, 10);
+    input.value = currentValue + 1;
+  }
+  
+  function decrementQuantity(inputId) {
+    var input = document.getElementById(inputId);
+    var currentValue = parseInt(input.value, 10);
+  
+    if (currentValue > 1) {
+      input.value = currentValue - 1;
+    }
+  }
+</script>
