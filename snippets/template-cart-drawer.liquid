@@ -1,11 +1,12 @@
-<div x-data="{ openCart: false }" class="absolute top-0 z-[99] w-[370px] h-full bg-[#fafafa] overflow-y-auto">
+<div class="absolute top-0 z-[99] w-[370px] h-full bg-[#fafafa] overflow-y-auto">
   <div class="flex flex-col justify-center items-center gap-6 z-60">
     <div class="flex justify-between items-center py-8 px-6 w-full border-b">
       <h1 class="text-xl uppercase tracking-widest">Cart</h1>
-      <button x-on:click="openCart = false">{% render 'icon-close-button' %}</button>
+      <button x-on:click="openCart = false, openCartDrawer = false">{% render 'icon-close-button' %}</button>
     </div>
     {% render "template-cart-items" %}
     <div class="">
+
       <button class="mini-cart-btn">
         <a href="{{ routes.cart_url }}">checkout - {{ cart.total_price | money }}</a>
       </button>

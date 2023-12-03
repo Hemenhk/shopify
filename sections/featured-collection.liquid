@@ -1,4 +1,4 @@
-<div class="flex flex-col justify-center my-8">
+<div class="flex flex-col justify-center py-8" style="background-color: {{ section.settings.featured_collection_background_color }};">
   <h1 class="text-xl text-center uppercase tracking-widest py-8">{{ section.settings.title }}</h1>
   <div class="max-w-6xl mx-auto">
     <div class="grid grid-cols-1 md:grid-cols-4">
@@ -36,6 +36,11 @@
         "id": "number_of_products_to_show",
         "label": "Number of products to show",
         "default": 4
+      },
+      {
+        "type": "color",
+        "id": "featured_collection_background_color",
+        "label": "Collection Background Color"
       }
     ],
     "presets": [

@@ -4,7 +4,10 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 
-<div class="flex flex-col lg:flex-row justify-center items-center gap-10 p-[5rem] bg-[#fafafa]">
+<div
+  class="flex flex-col lg:flex-row justify-center items-center gap-10 p-[5rem] bg-[#fafafa]"
+  x-data="{openCartDrawer: false}"
+  style="background-color: {{ section.settings.product_background_color }};">
   <div class="flex flex-col gap-10">
     <div class="flex flex-col w-[400px]">
       <div>{% render "product-image" %}</div>
@@ -42,37 +45,29 @@
                 {% unless product.has_only_default_variant %}
                   <variant-selector data-url="{{ product.url }}" data-section="{{ section.id }}">
                     {% for option in product.options_with_values %}
-                      <label
-                        class="uppercase text-sm tracking-wide"
-                        for="Option-{{ section.id }}-{{ forloop.index0 }}"
-                        class="block">{{ option.name }}:</label>
-
+                      <label for="Option-{{ section.id }}-{{ forloop.index0 }}">{{ option.name }}</label>
                       <div class="my-2">
-                        <ul class="flex flex-wrap items-center gap-3 pt-5">
+                        <select
+                          name="options[{{ option.name | escape }}]"
+                          id="Option-{{ section.id }}-{{ forloop.index0 }}"
+                          class="w-full border py-3 px-3">
                           {% for value in option.values %}
-                            <li class="radio-toolbar">
-                              <input
-                                type="radio"
-                                name="options[{{ option.name | escape }}]"
-                                id="Option-{{ section.id }}-{{ forloop.parent.index0 }}-{{ forloop.index }}"
-                                class="border py-3 px-3"
-                                value="{{ value | escape }}"
-                                {% if option.selected_value == value %}
-                                checked
-                                {% endif %}>
-                              <label class="cursor-pointer" for="Option-{{ section.id }}-{{ forloop.parent.index0 }}-{{ forloop.index }}">
-                                <span class="u-visually-hidden text-sm tracking-wider">{{ value }}</span>
-                              </label>
-                            </li>
+                            <option
+                              value="{{ value | escape }}"
+                              {% if option.selected_value == value %}
+                              selected="selected"
+                              {% endif %}>
+                              {{ value }}
+                            </option>
                           {% endfor %}
-                        </ul>
+                        </select>
                       </div>
 
+                      <script type="application/json">
+                        {{ product.variants | json }}
+                      </script>
 
                     {% endfor %}
-                    <script type="application/json">
-                      {{ product.variants | json }}
-                    </script>
                   </variant-selector>
                 {% endunless %}
               </div>
@@ -106,84 +101,112 @@
       {% endfor %}
 
     {% endform %}
+
   </div>
+
 </div>
 <div class="block lg:hidden z-50">
   {% render "accordion" %}</div>
 <script>
   class VariantSelector extends HTMLElement {
-    constructor() {
-      super();
-      this.addEventListener("change", this.onVariantChange);
-    }
+  constructor() {
+    super();
+    this.addEventListener("change", this.onVariantChange);
+  }
   
-    onVariantChange() {
-      this.getSelectedOptions();
-      this.getSelectedVariant();
+  onVariantChange() {
+    this.getSelectedOptions();
+    this.getSelectedVariant();
   
-      if (this.currentVariant) {
-        this.updateURL();
-        this.updateFormID();
-        this.updatePrice();
-      }
-    }
-  
-    getSelectedOptions() {
-      this.options = Array.from(this.querySelectorAll('input[type="radio"]:checked'), (radio) => radio.value);
-      console.log(this.options);
-    }
-  
-    getVariantJSON() {
-      this.variantData = this.variantData || JSON.parse(this.querySelector('[type="application/json"]').textContent);
-      return this.variantData;
-    }
-  
-    getSelectedVariant() {
-      this.currentVariant = this.getVariantJSON().find(
-        (variant) => {
-          const findings = !variant.options.map(
-            (option, index) => {
-              return this.options[index] === option;
-            }
-          ).includes(false);
-  
-          if (findings) return variant;
-        }
-      );
-  
-      console.log(this.currentVariant);
-    }
-  
-    updateURL() {
-      if (!this.currentVariant) return;
-      window.history.replaceState({}, '', `${this.dataset.url}?variant=${this.currentVariant.id}`);
-    }
-  
-    updateFormID() {
-      const form_input = document.querySelector("#product-form").querySelector('input[name="id"]');
-      form_input.value = this.currentVariant.id;
-    }
-  
-    updatePrice() {
-      fetch(`${this.dataset.url}?variant=${this.currentVariant.id}&section_id=${this.dataset.section}`)
-        .then((response) => response.text())
-        .then((responseText) => {
-          const id = `price-${this.dataset.section}`;
-          const html = new DOMParser().parseFromString(responseText, 'text/html');
-  
-          const oldPrice = document.getElementById(id);
-          const newPrice = html.getElementById(id);
-  
-          if (oldPrice && newPrice) oldPrice.innerHTML = newPrice.innerHTML;
-        });
+    if (this.currentVariant) {
+      this.updateURL();
+      this.updateFormID();
+      this.updatePrice();
     }
   }
   
+  getSelectedOptions() {
+    this.options = Array.from(this.querySelectorAll('select'), (select) => select.value);
+  }
+  
+  getVariantJSON() {
+    this.variantData = this.variantData || JSON.parse(this.querySelector('[type="application/json"]').textContent);
+    return this.variantData;
+  }
+  
+  getSelectedVariant() {
+    this.currentVariant = this.getVariantJSON().find((variant) => {
+      const findings = !variant.options.map((option, index) => {
+        return this.options[index] === option;
+      }).includes(false);
+  
+      return findings;
+    });
+  }
+  
+  updateURL() {
+    if (!this.currentVariant) return;
+    window.history.replaceState({}, '', `${this.dataset.url}?variant=${this.currentVariant.id}`);
+  }
+  
+  updateFormID() {
+    const formInput = document.querySelector("#product-form").querySelector('input[name="id"]');
+    formInput.value = this.currentVariant.id;
+  }
+  
+  updatePrice() {
+    fetch(`${this.dataset.url}?variant=${this.currentVariant.id}&section_id=${this.dataset.section}`)
+      .then((response) => response.text())
+      .then((responseText) => {
+        const id = `price-${this.dataset.section}`;
+        const html = new DOMParser().parseFromString(responseText, 'text/html');
+  
+        const oldPrice = document.getElementById(id);
+        const newPrice = html.getElementById(id);
+  
+        if (oldPrice && newPrice) oldPrice.innerHTML = newPrice.innerHTML;
+      });
+  }
+  }
+  
+  document.getElementById('product-form').addEventListener('submit', function (event) {
+    event.preventDefault(); 
+  
+    const formData = new FormData(event.target);
+    const addButton = document.querySelector('.product-btn');
+    const originalButtonText = addButton.textContent;
+  
+    fetch('/cart/add.js', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: new URLSearchParams(formData),
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Product added to cart:', data);
+  
+        location.reload()
+       
+      })
+      .catch(error => {
+        console.error('Error adding product to cart:', error);
+      });
+  });
+   
   customElements.define("variant-selector", VariantSelector);
 </script>
 {% schema %}
   {
     "name": "Product",
+    "settings": [
+      {
+        "type": "color",
+        "id": "product_background_color",
+        "label": "Product Page Background Color"
+      }
+    ],
     "blocks": [
       {
         "type": "vendor",
@@ -220,6 +243,7 @@
         "type": "metafield",
         "name": "Metafield"
       }
+
     ]
   }
 {% endschema %}

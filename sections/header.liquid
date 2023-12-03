@@ -14,7 +14,7 @@
       x-transition:leave-start="translate-x-0"
       x-transition:leave-end="translate-x-[-370px]"
       class="fixed inset-0 overflow-hidden z-50 "
-      @click.away="openSideBar = false">
+     >
       {% render 'template-sidebar-menu' %}
     </div>
     <div x-show="openSideBar"  class="fixed top-0 left-0 w-full h-full bg-[rgba(0,0,0,0.1)] z-40"></div>

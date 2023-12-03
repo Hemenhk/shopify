@@ -1,4 +1,17 @@
-<div class="flex flex-col items-center my-8">
+<div class="flex flex-col items-center h-full pb-10" style="background-color: {{ section.settings.layout_color }};">
   <h1 class="text-2xl uppercase tracking-widest py-8">{{ page.title }}</h1>
   <div class="max-w-xl md:max-w-4xl mx-auto px-4 text-center tracking-wide whitespace-break-spaces">{{ page.content }}</div>
 </div>
+
+{% schema %}
+  {
+    "name": "Layout Pages",
+    "settings": [
+      {
+        "type": "color",
+        "id": "layout_color",
+        "label": "Layout Background Color"
+      }
+    ]
+  }
+{% endschema %}

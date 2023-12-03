@@ -17,33 +17,9 @@
             {% endunless %}
             <p class="text-sm">{{ item.line_price | money }}</p>
           </div>
-          <div class="flex justify-between items-center gap-3">
-
-            <div class="flex justify-center items-center gap-4 border border-[#dbdbdb] b-radius rounded-sm p-[6px]">
-              {%- assign quantity_minus_one = item.quantity | minus: 1 -%}
-
-              <a
-                title="{{ 'cart.items.set_quantity' | t: new_quantity: quantity_minus_one }}"
-                href="{{ routes.cart_change_url }}?quantity={{ quantity_minus_one }}&line={{ forloop.index }}"
-                data-quantity="{{ quantity_minus_one }}"
-                data-line="{{ forloop.index }}"
-                data-action="update-item-quantity">{% render "icon-minus" %}</a>
-              <input
-                class="w-6 bg-transparent text-center"
-                type="text"
-                name="updates[]"
-                id="updates_{{ line_item.key }}"
-                pattern="[0-9]*"
-                data-line="{{ forloop.index }}"
-                value="{{ item.quantity }}">
-              {% assign quantity_plus_one = item.quantity | plus: 1 %}
-              <a
-                href="{{ routes.cart_change_url }}?quantity={{ quantity_plus_one   }}&line={{ forloop.index }}"
-                data-quantity="{{ quantity_plus_one }}"
-                data-line="{{ forloop.index }}"
-                data-action="update-item-quantity"
-                title="{{ cart.items.set_quantity | t: new_quantity: quantity_plus_one }}">{% render "icon-plus" %}</a>
-            </div>
+          <div class="flex items-center gap-3">
+            <p class="bg-gray-900 text-white w-7 h-7 rounded-2xl flex justify-center items-center">
+              {{ item.quantity }}</p>
             <a href="{{ routes.cart_change_url }}?line={{ forloop.index }}&quantity=0">{% render "icon-trash" %}</a>
           </div>
         </div>
