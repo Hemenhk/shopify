@@ -29,7 +29,8 @@
         <div class="w-[350px] lg:w-[400px]">
           {% case block.type %}
           {% when "@app" %}
-            {% render block %}
+            <div class="my-3">
+            {% render block %}</div>
             {% when "vendor" %}
               <div class="my-3">
                 <p class="uppercase text-xs text-gray-500 tracking-widest text-center lg:text-left">{{ product.vendor }}</p>
