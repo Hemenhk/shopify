@@ -13,9 +13,6 @@
       <div>{% render "product-image" %}</div>
 
       <div class="mt-24 hidden lg:flex">{% render "accordion" %}</div>
-      {% if section.blocks.type == "@app" %}
-        {% render "judgeme_widgets" %}
-      {% endif %}
     </div>
   </div>
   <div class="flex flex-col relative items-center lg:items-start lg:left-[50px] lg:w-[400px] gap-10">
@@ -98,20 +95,19 @@
               </div>
             {% when "description" %}
               <p>{{ product.description }}</p>
-
-            </div>
-
+            </div>{% else %}
         {% endcase %}
-
       {% endfor %}
-
     {% endform %}
+   
+    
 
   </div>
-
-</div>
 <div class="block lg:hidden z-50">
   {% render "accordion" %}</div>
+</div>
+
+  
 <script>
   class VariantSelector extends HTMLElement {
   constructor() {
