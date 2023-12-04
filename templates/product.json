@@ -3,24 +3,83 @@
     "template": {
       "type": "template-product",
       "blocks": {
-        "vendor": { "type": "vendor"},
-        "title": { "type": "title"},
-        "price": { "type": "price"},
-        "variant_selector": { "type": "variant_selector"},
-        "quantity": { "type": "quantity"},
-        "checkout_button": { "type": "checkout_button"},
-        "description": { "type": "description"}
+        "title": {
+          "type": "title",
+          "settings": {
+          }
+        },
+        "9b5fa2c7-a1f4-4a68-bdcb-29f0fc686498": {
+          "type": "shopify:\/\/apps\/judge-me-reviews\/blocks\/preview_badge\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+          }
+        },
+        "vendor": {
+          "type": "vendor",
+          "disabled": true,
+          "settings": {
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+          }
+        },
+        "variant_selector": {
+          "type": "variant_selector",
+          "settings": {
+          }
+        },
+        "quantity": {
+          "type": "quantity",
+          "settings": {
+          }
+        },
+        "checkout_button": {
+          "type": "checkout_button",
+          "settings": {
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {
+          }
+        }
       },
       "block_order": [
-        "vendor",
         "title",
+        "9b5fa2c7-a1f4-4a68-bdcb-29f0fc686498",
+        "vendor",
         "price",
         "variant_selector",
         "quantity",
         "checkout_button",
         "description"
-      ]
+      ],
+      "settings": {
+        "product_background_color": ""
+      }
+    },
+    "1701685418dc6b3393": {
+      "type": "apps",
+      "blocks": {
+        "a89cba67-999b-43ce-9a83-ef3666a20e79": {
+          "type": "shopify:\/\/apps\/judge-me-reviews\/blocks\/review_widget\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+          }
+        }
+      },
+      "block_order": [
+        "a89cba67-999b-43ce-9a83-ef3666a20e79"
+      ],
+      "custom_css": [
+        "body {width: 70%;}"
+      ],
+      "settings": {
+      }
     }
   },
-  "order": ["template"]
+  "order": [
+    "template",
+    "1701685418dc6b3393"
+  ]
 }
