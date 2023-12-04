@@ -13,14 +13,12 @@
       <div>{% render "product-image" %}</div>
 
       <div class="mt-24 hidden lg:flex">{% render "accordion" %}</div>
-      {% for block in section.blocks %}
-        {% case block.type %}
+        {% case section.blocks.type %}
           {% when "@app" %}
             
             <div class="my-3">
             {% render block %}</div>
         {% endcase %}
-      {% endfor %}
     </div>
   </div>
   <div class="flex flex-col relative items-center lg:items-start lg:left-[50px] lg:w-[400px] gap-10">
