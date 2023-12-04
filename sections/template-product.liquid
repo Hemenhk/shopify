@@ -14,12 +14,7 @@
 
       <div class="mt-24 hidden lg:flex">{% render "accordion" %}</div>
       {% if section.blocks.type == "@app" %}
-        {% case block.type %}
-          {% when "@app" %}
-            
-            <div class="my-3">
-            {% render block %}</div>
-        {% endcase %}
+        {% render "judgeme_widgets" %}
       {% endif %}
     </div>
   </div>
@@ -260,3 +255,4 @@
     ]
   }
 {% endschema %}
+
