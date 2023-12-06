@@ -22,7 +22,13 @@
     
     <!-- Cart button -->
     <button x-on:click="openCart = ! openCart" type="button">
-      {% render 'icon-shopping-bag' %}
+      {% if cart.item_count > 0 %}
+        {% render 'icon-shopping-bag' %}
+        <span class="relative left-3 bottom-3 rounded-3xl flex justify-center items-center w-5 h-5 bg-gray-900 text-white text-sm">{{ cart.item_count }} </span>
+        {% else %}
+           {% render 'icon-shopping-bag' %}
+      {% endif %}
+     
     </button>
     
     <div
