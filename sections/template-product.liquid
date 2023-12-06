@@ -87,9 +87,9 @@
                   disabled
                   {% endif %}>
                   {% if selected_variant.available == false %}
-                    Sold out
+                    {{ block.settings.sold_out_button }}
                   {% else %}
-                    Add to cart
+                  {{ block.settings.buy_button }}
                   {% endif %}
                 </button>
               </div>
@@ -208,6 +208,7 @@
         "id": "product_background_color",
         "label": "Product Page Background Color"
       }
+     
     ],
     "blocks": [
       {
@@ -236,7 +237,21 @@
       }, {
         "type": "checkout_button",
         "name": "Checkout Button",
-        "limit": 1
+        "limit": 1,
+        "settings": [
+          {
+        "type": "text",
+        "id": "buy_button",
+        "label": "Add to Cart Button",
+        "default": "Add to cart"
+      },
+      {
+        "type": "text",
+        "id": "sold_out_button",
+        "label": "Sold Out Button",
+        "default": "Sold Out"
+      }
+        ]
       }, {
         "type": "description",
         "name": "Description",
