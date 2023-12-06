@@ -92,12 +92,12 @@
               <button
                 type="submit"
                 name="update"
-                class="main-btn">Update cart</button>
+                class="main-btn btn">Update cart</button>
             </div>
               <button
                 type="submit"
                 name="checkout"
-                class="main-btn">Go to Checkout</button>
+                class="main-btn btn">Go to Checkout</button>
             </div>
           </div>
         </div>
@@ -109,8 +109,8 @@
     <div class="text-center">
       <h1 class="text-3xl my-4">Your cart is empty</h1>
 
-      <div class="my-4 py-4">
-        <a href="{{ routes.all_products_collection_url }}" class="border border-gray-600 text-white bg-gray-600 px-8 py-3">Continue shopping</a>
+      <div class="my-4 py-4 btn">
+        <a href="{{ routes.all_products_collection_url }}">Continue shopping</a>
       </div>
     </div>
   </div>

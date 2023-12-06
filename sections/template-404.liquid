@@ -1,4 +1,4 @@
-<div class="h-screen flex flex-col justify-center items-center gap-5" style="background-color:  {{ section.settings.404 }};">
+<div class="h-screen flex flex-col justify-center items-center gap-5" style="background-color:  {{ section.settings.error_backround_color }};">
   <h1 class="text-4xl font-bold uppercase">{{ section.settings.title }}</h1>
   <p>{{ section.settings.subtext_title }}</p>
   <button class="bg-slate-950 text-white px-6 py-3 rounded-sm transition ease-out duration-300 hover:bg-slate-500">
@@ -25,7 +25,7 @@
 
       }, {
         "type": "color",
-        "id": "404",
+        "id": "error_backround_color",
         "label": "404 Background Color"
       }
     ]
