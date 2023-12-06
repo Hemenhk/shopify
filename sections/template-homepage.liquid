@@ -3,7 +3,9 @@
     <div class="flex flex-col gap-4 text-center md:text-left items-center lg:items-start relative top-[50%] lg:top-[70%] lg:pl-14">
       <h3 class="uppercase text-[15px] tracking-widest w-3/4" style="color: {{ section.settings.color_sub_heading }};">{{ section.settings.sub_heading }}</h3>
       <h1 class="uppercase text-2xl text-gray-200 tracking-widest pb-3 w-4/5" style="color: {{ section.settings.color_heading }};">{{ section.settings.heading }}</h1>
-      <button class="hero-btn">{{ section.settings.hero_button }}</button>
+      <button class="hero-btn">
+        <a href="{{ section.settings.button_link }}">{{ section.settings.hero_button }}</a>
+      </button>
     </div>
 
   </div>
@@ -47,6 +49,11 @@
         "id": "color_heading",
         "default": "#fff",
         "label": "Heading Color"
+      }, {
+        "type": "url",
+        "id": "button_link",
+        "label": "Button Link",
+        "info": "Select a link for this button"
       }
     ]
   }
