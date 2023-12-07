@@ -4,10 +4,10 @@
     <div class="grid grid-cols-1 md:grid-cols-4">
       {% for product in section.settings.featured_collection.products limit: section.settings.number_of_products_to_show %}
         {% render "product-card"
-          , product: product %}
+          , product: product, blocks: section.settings.blocks, align: section.settings.card_text_alignment %}
       {% else %}
         {% for item in (1..4) %}
-          {% render "product-card-placeholder" %}
+          {% render "product-card-placeholder",blocks: section.settings.blocks, align: section.settings.card_text_alignment  %}
         {% endfor %}
       {% endfor %}
     </div>
@@ -41,6 +41,38 @@
         "type": "color",
         "id": "featured_collection_background_color",
         "label": "Collection Background Color"
+      },
+      {
+        "type": "select",
+        "id": "card_text_alignment",
+        "label": "Text Alignment",
+        "options": [
+          {
+            "value": "start", "label": "Left"
+          },
+          {
+            "value": "center", "label": "Center"
+          }
+          
+        ],
+        "default": "center"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "title",
+        "name": "Title",
+        "limit": 1
+      },
+      {
+        "type": "vendor",
+        "name": "Vendor",
+        "limit": 1
+      },
+      {
+        "type": "price",
+        "name": "Price",
+        "limit": 1
       }
     ],
     "presets": [

@@ -6,7 +6,9 @@
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         {% for product in collection.products %}
           {% render "product-card"
-            , product: product %}
+            , product: product
+            , blocks: section.settings.blocks
+            , align: section.settings.card_text_alignment %}
 
         {% else %}
           <p>There are no products inside of this collection</p>
@@ -33,6 +35,36 @@
         "type": "color",
         "id": "collection_background_color",
         "label": "Collection Background Color"
+      }, {
+        "type": "select",
+        "id": "card_text_alignment",
+        "label": "Text Alignment",
+        "options": [
+          {
+            "value": "start",
+            "label": "Left"
+          }, {
+            "value": "center",
+            "label": "Center"
+          }
+
+        ],
+        "default": "center"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "title",
+        "name": "Title",
+        "limit": 1
+      }, {
+        "type": "vendor",
+        "name": "Vendor",
+        "limit": 1
+      }, {
+        "type": "price",
+        "name": "Price",
+        "limit": 1
       }
     ]
   }
