@@ -18,7 +18,13 @@
       {% render 'template-sidebar-menu' %}
     </div>
     <div x-show="openSideBar"  class="fixed top-0 left-0 w-full h-full bg-[rgba(0,0,0,0.1)] z-40"></div>
-    <a href="/"><img src="{{ section.settings.menu_logo | img_url: 'large' }}" width="70" height="70" alt="logo"></a>
+    <a href="/">
+      {% if section.settings.header_type == "logo" %}
+        <img src="{{ section.settings.menu_logo | img_url: 'master' }}" width="{{ section.settings.logo_image_size }}" height="{{ section.settings.logo_image_size }}" alt="logo">
+      {% else %}
+        <h1 class="tracking-widest" style="font-size:{{ section.settings.menu_logo_text_size }}px; font-weight:{{ section.settings.menu_logo_text_weight }}; text-transform: {{ section.settings.menu_logo_text_casing }}; ">{{ section.settings.menu_logo_text }}</h1>
+      {% endif %}
+    </a>
     
     <!-- Cart button -->
     <button x-on:click="openCart = ! openCart" type="button">
@@ -28,7 +34,6 @@
         {% else %}
            {% render 'icon-shopping-bag' %}
       {% endif %}
-     
     </button>
     
     <div
@@ -53,10 +58,77 @@
     "name": "Header",
     "settings": [
       {
+      "type": "select",
+      "id": "header_type",
+      "label": "Header Type",
+      "options": [
+        {"value": "logo", "label": "Logo"},
+        {"value": "text", "label": "Text"}
+      ],
+      "default": "logo"
+    },
+      {
         "type": "image_picker",
         "id": "menu_logo",
-        "label": "Logo",
-        "info": "This is for the menu window"
+        "label": "Logo Image",
+        "info": "Add logo image to header"
+      },
+      {
+        "id": "logo_image_size",
+        "label": "Logo Size (in pixels)",
+        "default": 100,
+        "min": 10,
+        "max": 150,
+        "type": "range",
+        "step": 10
+          },
+      {
+        "type": "text",
+        "id": "menu_logo_text",
+        "label": "Logo Text",
+        "info": "Add logo text to header"
+      },
+      {
+        "type": "range",
+        "id": "menu_logo_text_size",
+        "label": "Logo Font Size",
+        "info": "Change font size for logo text",
+        "default": 15,
+        "min": 15,
+        "max": 60,
+        "step": 5
+      },
+      {
+        "type": "select",
+        "id": "menu_logo_text_weight",
+        "label": "Logo Font Weight",
+        "options": [
+          {
+            "value": "400", "label": "Normal"
+          },
+          {
+            "value": "600", "label": "Medium"
+          },
+          {
+            "value": "700", "label": "Bold"
+          }
+        ],
+        "default": "400"
+      },
+      {
+        "type": "select",
+        "id": "menu_logo_text_casing",
+        "label": "Logo Font Case",
+        "options": [
+          {
+            "value": "normal", "label": "Normal"
+          },
+          {
+            "value": "uppercase", "label": "Uppercase"
+          }
+          
+        ],
+        "default": "normal"
       }, {
         "type": "link_list",
         "id": "menu",
