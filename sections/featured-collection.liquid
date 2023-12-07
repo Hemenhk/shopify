@@ -7,7 +7,7 @@
           , product: product, blocks: section.settings.blocks, align: section.settings.card_text_alignment %}
       {% else %}
         {% for item in (1..4) %}
-          {% render "product-card-placeholder" %}
+          {% render "product-card-placeholder",blocks: section.settings.blocks, align: section.settings.card_text_alignment  %}
         {% endfor %}
       {% endfor %}
     </div>
