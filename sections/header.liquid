@@ -1,5 +1,8 @@
 {% assign main_menu_linklist = linklists[section.settings.menu].links %}
-<nav x-data="{ openSideBar: false,openCart: false}" x-cloak class="space-x-10">
+<nav
+  x-data="{ openSideBar: false,openCart: false, openLanguage: true}"
+  x-cloak
+  class="space-x-10">
   <div class="flex justify-between items-center w-full h-32 py-6 px-14 border-b">
     <!-- Menu button -->
     <button x-on:click="openSideBar = ! openSideBar" type="button">
@@ -13,128 +16,166 @@
       x-transition:leave="transform transition-transform ease-out duration-500"
       x-transition:leave-start="translate-x-0"
       x-transition:leave-end="translate-x-[-370px]"
-      class="fixed inset-0 overflow-hidden z-50 "
-     >
+      class="fixed inset-0 overflow-hidden z-50 ">
       {% render 'template-sidebar-menu' %}
     </div>
-    <div x-show="openSideBar"  class="fixed top-0 left-0 w-full h-full bg-[rgba(0,0,0,0.1)] z-40"></div>
+    <div x-show="openSideBar" class="fixed top-0 left-0 w-full h-full bg-[rgba(0,0,0,0.1)] z-40"></div>
     <a href="/">
       {% if section.settings.header_type == "logo" %}
-        <img src="{{ section.settings.menu_logo | img_url: 'master' }}" width="{{ section.settings.logo_image_size }}" height="{{ section.settings.logo_image_size }}" alt="logo">
+        <img
+          src="{{ section.settings.menu_logo | img_url: 'master' }}"
+          width="{{ section.settings.logo_image_size }}"
+          height="{{ section.settings.logo_image_size }}"
+          alt="logo">
       {% else %}
         <h1 class="tracking-widest" style="font-size:{{ section.settings.menu_logo_text_size }}px; font-weight:{{ section.settings.menu_logo_text_weight }}; text-transform: {{ section.settings.menu_logo_text_casing }}; ">{{ section.settings.menu_logo_text }}</h1>
       {% endif %}
     </a>
-    
-    <!-- Cart button -->
-    <button x-on:click="openCart = ! openCart" type="button">
-      {% if cart.item_count > 0 %}
-        {% render 'icon-shopping-bag' %}
-        <span class="relative left-3 bottom-3 rounded-3xl flex justify-center items-center w-5 h-5 bg-gray-900 text-white text-sm">{{ cart.item_count }} </span>
+
+    <div class="flex items-center gap-5">
+
+      <!-- Language Selector -->
+
+      <button x-on:click="openLanguage = ! openLanguage" class="flex items-center">
+        <span class="uppercase text-xs tracking-widest">{{ localization.language.name }}</span>
+        {% render "icon-dropdown" %}
+      </button>
+
+      <div
+        x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0 translate-y-3"
+        x-transition:enter-end="opacity-100 translate-y-0"
+        x-transition:leave="transition ease-out duration-300"
+        x-transition:leave-start="opacity-100 translate-y-0"
+        x-transition:leave-end="opacity-0 translate-y-3"
+        x-show="openLanguage"
+        @click.away="openLanguage = false"
+        class="absolute top-20 right-20 z-10 mr-4 mt-5 w-40 transform px-2">
+        <div class="shadow-lg border ring-black ring-opacity-5 overflow-hidden rounded-">
+          <div class="relative flex flex-col justify-center items-center gap-6 bg-white px-5 py-6 ">
+            {% for language in localization.available_languages %}
+              <a href="{{ language.root_url }}" class="-m-3 p-3 flex items-start">
+                <p class="text-gray-900 uppercase text-sm">
+                  {{ language.name }}
+                </p>
+              </a>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      <!-- Language Selector Ends -->
+
+      <!-- Cart button -->
+      <button x-on:click="openCart = ! openCart" type="button">
+        {% if cart.item_count > 0 %}
+          {% render 'icon-shopping-bag' %}
+          <span class="relative left-3 bottom-3 rounded-3xl flex justify-center items-center w-5 h-5 bg-gray-900 text-white text-sm">{{ cart.item_count }}</span>
         {% else %}
-           {% render 'icon-shopping-bag' %}
-      {% endif %}
-    </button>
-    
-    <div
-    x-show="openCart"
-    x-transition:enter="transform transition-transform ease-out duration-500"
-    x-transition:enter-start="translate-x-full"
-    x-transition:enter-end="translate-x-0"
-    x-transition:leave="transform transition-transform ease-out duration-500"
-    x-transition:leave-start="translate-x-0"
-    x-transition:leave-end="translate-x-full"
-    class="fixed inset-y-0 right-0 w-[370px] z-50"
-    @click.away="openCart = false"
-  >
-      {% render "template-cart-drawer" %}
-    </div><div x-show="openCart"  class="fixed top-0 left-0 w-full h-full bg-[rgba(0,0,0,0.1)] z-40"></div>
+          {% render 'icon-shopping-bag' %}
+        {% endif %}
+      </button>
 
-  </nav>
-</div>
-
-{% schema %}
-  {
-    "name": "Header",
-    "settings": [
-      {
+      <div
+        x-show="openCart"
+        x-transition:enter="transform transition-transform ease-out duration-500"
+        x-transition:enter-start="translate-x-full"
+        x-transition:enter-end="translate-x-0"
+        x-transition:leave="transform transition-transform ease-out duration-500"
+        x-transition:leave-start="translate-x-0"
+        x-transition:leave-end="translate-x-full"
+        class="fixed inset-y-0 right-0 w-[370px] z-50"
+        @click.away="openCart = false">
+        {% render "template-cart-drawer" %}
+      </div>
+      <div x-show="openCart" class="fixed top-0 left-0 w-full h-full bg-[rgba(0,0,0,0.1)] z-40"></div>
+    </div>
+  </div>
+</nav></div>{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
       "type": "select",
       "id": "header_type",
       "label": "Header Type",
       "options": [
-        {"value": "logo", "label": "Logo"},
-        {"value": "text", "label": "Text"}
+        {
+          "value": "logo",
+          "label": "Logo"
+        }, {
+          "value": "text",
+          "label": "Text"
+        }
       ],
       "default": "logo"
     },
-      {
-        "type": "image_picker",
-        "id": "menu_logo",
-        "label": "Logo Image",
-        "info": "Add logo image to header"
-      },
-      {
-        "id": "logo_image_size",
-        "label": "Logo Size (in pixels)",
-        "default": 100,
-        "min": 10,
-        "max": 150,
-        "type": "range",
-        "step": 10
-          },
-      {
-        "type": "text",
-        "id": "menu_logo_text",
-        "label": "Logo Text",
-        "info": "Add logo text to header"
-      },
-      {
-        "type": "range",
-        "id": "menu_logo_text_size",
-        "label": "Logo Font Size",
-        "info": "Change font size for logo text",
-        "default": 15,
-        "min": 15,
-        "max": 60,
-        "step": 5
-      },
-      {
-        "type": "select",
-        "id": "menu_logo_text_weight",
-        "label": "Logo Font Weight",
-        "options": [
-          {
-            "value": "400", "label": "Normal"
-          },
-          {
-            "value": "600", "label": "Medium"
-          },
-          {
-            "value": "700", "label": "Bold"
-          }
-        ],
-        "default": "400"
-      },
-      {
-        "type": "select",
-        "id": "menu_logo_text_casing",
-        "label": "Logo Font Case",
-        "options": [
-          {
-            "value": "normal", "label": "Normal"
-          },
-          {
-            "value": "uppercase", "label": "Uppercase"
-          }
-          
-        ],
-        "default": "normal"
-      }, {
-        "type": "link_list",
-        "id": "menu",
-        "label": "Header Menu",
-        "default": "main-menu"
-      }
-    ]
-  }
-{% endschema %}
+    {
+      "type": "image_picker",
+      "id": "menu_logo",
+      "label": "Logo Image",
+      "info": "Add logo image to header"
+    },
+    {
+      "id": "logo_image_size",
+      "label": "Logo Size (in pixels)",
+      "default": 100,
+      "min": 10,
+      "max": 150,
+      "type": "range",
+      "step": 10
+    },
+    {
+      "type": "text",
+      "id": "menu_logo_text",
+      "label": "Logo Text",
+      "info": "Add logo text to header"
+    }, {
+      "type": "range",
+      "id": "menu_logo_text_size",
+      "label": "Logo Font Size",
+      "info": "Change font size for logo text",
+      "default": 15,
+      "min": 15,
+      "max": 60,
+      "step": 5
+    }, {
+      "type": "select",
+      "id": "menu_logo_text_weight",
+      "label": "Logo Font Weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "Normal"
+        }, {
+          "value": "600",
+          "label": "Medium"
+        }, {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "400"
+    }, {
+      "type": "select",
+      "id": "menu_logo_text_casing",
+      "label": "Logo Font Case",
+      "options": [
+        {
+          "value": "normal",
+          "label": "Normal"
+        }, {
+          "value": "uppercase",
+          "label": "Uppercase"
+        }
+
+      ],
+      "default": "normal"
+    }, {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Header Menu",
+      "default": "main-menu"
+    }
+  ]
+}{% endschema %}
