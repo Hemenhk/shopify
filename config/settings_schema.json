@@ -6,5 +6,21 @@
     "theme_author": "Shopify",
     "theme_documentation_url": "https://github.com/Shopify/themekit",
     "theme_support_url": "https://github.com/Shopify/themekit/issues"
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Typography Settings"
+      },
+      {
+        "type": "font_picker",
+        "label": "Font Family",
+        "id": "font_family",
+        "default": "sans-serif"
+      }
+      
+    ]
   }
 ]

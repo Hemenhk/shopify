@@ -14,9 +14,25 @@
     {{ 'style.css' | asset_url | stylesheet_tag }}
     {{ 'application.js' | asset_url | script_tag }}
 
+
     <style>
       [x-cloak] {
         display: none !important;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: {{ settings.header_font_new | font_face }};
+        font-size: {{ settings.header_base_size }}px;
+      }
+
+      body {
+        font-family: {{ settings.base_font_new | font_face }};
+        font-size: {{ settings.body_base_size }}px;
       }
     </style>
 
