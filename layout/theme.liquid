@@ -51,7 +51,7 @@
   <body class="overflow-x-hidden" style="background-color: {{ section.settings.theme_background_color }};">
     {% section "announcement" %}
     {% if template == "index" %}
-      <div class="absolute w-screen text-white transition ease-out duration-700 hover:text-black hover:bg-white">{% section 'header' %}</div>
+      <div >{% section 'header' %}</div>
       {% section "template-homepage" %}
     {% else %}
       {% section 'header' %}

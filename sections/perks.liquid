@@ -1,0 +1,66 @@
+<div class="flex justify-center items-center w-full gap-5" style="{{ section.settings.perk_background_color }}"></div>
+{% for block in section.blocks %}
+  <div class="flex flex-col items-center justify-center gap-5">
+    {% case block.type %}
+      {% when "perk_heading" %}
+        <h2 class="font-medium tracking-wider uppercase" style="color: {{ section.settings.perk_heading_color }};">{{ section.settings.perk_heading }}</h2>
+
+      {% when "perk_text" %}
+        <h2 class="tracking-wider" style="color: {{ section.settings.perk_text_color }};">{{ section.settings.perk_text }}</h2>
+    {% endcase %}
+  </div>
+
+{% endfor %}
+{% schema %}
+  {
+    "name": "Perks",
+    "settings": [
+      {
+        "type": "text",
+        "id": "perk_heading",
+        "label": "Perk Heading",
+        "default": "Heading"
+
+      },
+      {
+        "type": "color",
+        "id": "perk_heading_color",
+        "label": "Perk Heading Color",
+        "default": "#000"
+
+      },
+      {
+        "type": "text",
+        "id": "perk_text",
+        "label": "Perk Text",
+        "default": "Perk"
+
+      },
+      {
+        "type": "color",
+        "id": "perk_text_color",
+        "label": "Perk Text Color",
+        "default": "#000"
+
+      }, {
+        "type": "color",
+        "id": "perk_background_color",
+        "label": "Perk Background Color",
+        "default": "#fff"
+
+      }
+
+    ],
+    "blocks": [
+      {
+        "type": "perk_heading",
+        "name": "Heading",
+        "limit": 3
+      }, {
+        "type": "perk_text",
+        "name": "Perk Text",
+        "limit": 3
+      }
+    ]
+  }
+{% endschema %}
